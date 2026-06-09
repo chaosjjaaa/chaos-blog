@@ -1,0 +1,30 @@
+---
+layout: default
+title: 项目
+section_key: project
+---
+
+<main class="container section section-page">
+  <p class="eyebrow">分区</p>
+  <h1>项目</h1>
+  <p class="lead">自动收录 <code>_posts/project/</code> 目录下的文章。</p>
+
+  <div class="card-grid section-card-grid">
+    {% assign section_posts = site.posts | where_exp: "post", "post.path contains '_posts/project/' or post.section == 'project'" %}
+    {% for post in section_posts %}
+      <article class="card">
+        <p class="tag">项目</p>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        {% if post.description %}
+          <p>{{ post.description }}</p>
+        {% elsif post.excerpt %}
+          <p>{{ post.excerpt | strip_html | truncate: 90 }}</p>
+        {% endif %}
+        <p class="meta">{{ post.date | date: "%Y-%m-%d" }}</p>
+        <a href="{{ post.url | relative_url }}">阅读全文 →</a>
+      </article>
+    {% else %}
+      <p class="muted">这个分区还没有文章。</p>
+    {% endfor %}
+  </div>
+</main>
