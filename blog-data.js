@@ -31,11 +31,15 @@
 
   {% for item in site.pages %}
   {% if item.title and item.url != '/' and item.search_exclude != true %}
+  {% assign page_label = '页面' %}
+  {% if item.section_key and site.data.sections[item.section_key] %}
+  {% assign page_label = site.data.sections[item.section_key].label %}
+  {% endif %}
   addPage({
     title: {{ item.title | jsonify }},
     url: {{ item.url | relative_url | jsonify }},
     type: "页面",
-    label: "页面",
+    label: {{ page_label | jsonify }},
     aliases: {{ item.aliases | jsonify }},
     keywords: {{ item.keywords | jsonify }},
     excerpt: {{ item.description | default: item.excerpt | default: '' | strip_html | normalize_whitespace | jsonify }},
