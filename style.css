@@ -142,14 +142,22 @@ nav.nav {
 
 .quick-search,
 .search-box {
-  background: rgba(255, 253, 247, 0.92);
+  background: rgba(255, 253, 247, 0.94);
   border: 1px solid #eadfcb;
   border-radius: 22px;
   box-shadow: 0 10px 30px rgba(36, 48, 66, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.quick-search:focus-within,
+.search-box:focus-within {
+  border-color: #d6b36a;
+  box-shadow: 0 16px 34px rgba(36, 48, 66, 0.09), 0 0 0 4px rgba(214, 179, 106, 0.16);
 }
 
 .quick-search {
   display: flex;
+  align-items: center;
   max-width: 620px;
   margin: 26px 0 18px;
   padding: 8px;
@@ -165,6 +173,11 @@ nav.nav {
   background: transparent;
   color: #243042;
   font: inherit;
+}
+
+.quick-search input::placeholder,
+.search-box input::placeholder {
+  color: #8a94a6;
 }
 
 .quick-search input {
@@ -184,13 +197,31 @@ nav.nav {
 }
 
 .search-box {
+  position: relative;
+  display: grid;
+  gap: 14px;
   margin: 28px 0;
   padding: 22px;
+  overflow: hidden;
+}
+
+.search-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 12% 18%, rgba(255, 241, 189, 0.58), transparent 30%);
+}
+
+.search-box label,
+.search-row {
+  position: relative;
 }
 
 .search-box label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 0;
+  color: #243042;
   font-weight: 800;
 }
 
@@ -198,13 +229,26 @@ nav.nav {
   display: flex;
   gap: 10px;
   align-items: center;
-}
-
-.search-row input {
-  padding: 12px 14px;
+  padding: 8px;
   border: 1px solid #eadfcb;
   border-radius: 999px;
   background: #fffdf7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-row:focus-within {
+  border-color: #d6b36a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 3px rgba(214, 179, 106, 0.14);
+}
+
+.search-row input {
+  padding: 8px 10px;
+}
+
+.search-row .button {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .search-results {
@@ -273,6 +317,43 @@ nav.nav {
   color: #73531c;
   font-size: 13px;
   font-weight: 700;
+}
+
+.tag.type-home,
+.wiki-link.type-home,
+.backlink-card.type-home {
+  --link-accent: #7b5fef;
+  --link-accent-soft: #ece8ff;
+  --link-accent-border: #c9beff;
+}
+
+.tag.type-archive,
+.wiki-link.type-archive,
+.backlink-card.type-archive {
+  --link-accent: #8a5d00;
+  --link-accent-soft: #f9efd9;
+  --link-accent-border: #e4c985;
+}
+
+.tag.type-page,
+.wiki-link.type-page,
+.backlink-card.type-page {
+  --link-accent: #2f6f73;
+  --link-accent-soft: #e2f2ed;
+  --link-accent-border: #a7d7cc;
+}
+
+.tag.type-post,
+.wiki-link.type-post,
+.backlink-card.type-post {
+  --link-accent: #9a4f6d;
+  --link-accent-soft: #f7e4ec;
+  --link-accent-border: #e5aac1;
+}
+
+.tag[class*="type-"] {
+  background: var(--link-accent-soft);
+  color: var(--link-accent);
 }
 
 .quote-box {
@@ -351,9 +432,10 @@ blockquote {
 }
 
 .wiki-link {
-  color: #8a5d00;
+  color: var(--link-accent, #8a5d00);
   font-weight: 800;
-  border-bottom: 2px solid #e4c985;
+  border-bottom: 2px solid var(--link-accent-border, #e4c985);
+  background: linear-gradient(to top, var(--link-accent-soft, #f9efd9) 42%, transparent 42%);
 }
 
 .backlinks-section {
@@ -373,21 +455,28 @@ blockquote {
 }
 
 .backlink-card {
+  --link-accent: #8a5d00;
+  --link-accent-soft: #fffaf0;
+  --link-accent-border: #e4c985;
   display: grid;
   gap: 4px;
   padding: 16px 18px;
   border: 1px solid #eadfcb;
+  border-left: 4px solid var(--link-accent);
   border-radius: 16px;
-  background: #fffaf0;
+  background: linear-gradient(90deg, var(--link-accent-soft), #fffdf7 56%);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .backlink-card:hover {
   text-decoration: none;
-  border-color: #d6b36a;
+  border-color: var(--link-accent-border);
+  box-shadow: 0 12px 26px rgba(36, 48, 66, 0.08);
+  transform: translateY(-1px);
 }
 
 .backlink-card span {
-  color: #906b24;
+  color: var(--link-accent);
   font-size: 12px;
   font-weight: 800;
 }
@@ -471,6 +560,14 @@ code {
   .quick-search button {
     width: 100%;
     padding: 12px 16px;
+  }
+
+  .search-row {
+    border-radius: 20px;
+  }
+
+  .search-row .button {
+    width: 100%;
   }
 
   .section {
