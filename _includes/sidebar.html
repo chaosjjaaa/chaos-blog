@@ -7,11 +7,11 @@
 
     <p>分区</p>
     <nav class="sidebar-nav" aria-label="分区导航">
-      <a {% if page.section_key == 'math' or page.section == 'math' %}class="active"{% endif %} href="{{ '/sections/math.html' | relative_url }}">数学笔记</a>
-      <a {% if page.section_key == 'poem' or page.section == 'poem' %}class="active"{% endif %} href="{{ '/sections/poem.html' | relative_url }}">诗歌</a>
-      <a {% if page.section_key == 'project' or page.section == 'project' %}class="active"{% endif %} href="{{ '/sections/project.html' | relative_url }}">项目</a>
-      <a {% if page.section_key == 'misc' or page.section == 'misc' %}class="active"{% endif %} href="{{ '/sections/misc.html' | relative_url }}">随笔</a>
-      <a {% if page.section_key == 'other' or page.section == 'other' %}class="active"{% endif %} href="{{ '/sections/other.html' | relative_url }}">其他</a>
+      {% for section_pair in site.data.sections %}
+        {% assign section_key = section_pair[0] %}
+        {% assign section = section_pair[1] %}
+        <a {% if page.section_key == section_key or page.section == section_key %}class="active"{% endif %} href="{{ '/sections/' | append: section_key | append: '.html' | relative_url }}">{{ section.title }}</a>
+      {% endfor %}
     </nav>
   </div>
 </aside>
