@@ -1,0 +1,8 @@
+title: Chaos Blog
+description: Chaos的博客
+lang: zh-CN
+timezone: Asia/Singapore
+url: "https://chaosjjaaa.github.io"
+baseurl: "/chaos-blog"
+markdown: kramdown
+permalink: /posts/:slug.html
