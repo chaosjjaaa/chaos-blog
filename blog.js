@@ -11,7 +11,7 @@
   function normalizePath(url) {
     const link = document.createElement("a");
     link.href = url;
-    let path = link.pathname.replace(/\/+/g, "/").replace(/^\//, "");
+    let path = link.pathname.replace(/\/+g, "/").replace(/^\//, "");
     if (!path || path.endsWith("/")) path += "index.html";
     return path;
   }
@@ -56,11 +56,64 @@
   }
 
   function findPageByName(name) {
-    const target = name.trim().toLowerCase();
+    const target = String(name || "").trim().toLowerCase();
+    if (!target) return null;
+
     return pages.find((page) => {
       const names = [page.title].concat(page.aliases || []);
       return names.some((item) => String(item).trim().toLowerCase() === target);
     });
+  }
+
+  function clearElement(element) {
+    while (element.firstChild) element.removeChild(element.firstChild);
+  }
+
+  function appendMutedMessage(container, text) {
+    clearElement(container);
+    const message = document.createElement("p");
+    message.className = "muted";
+    message.textContent = text;
+    container.appendChild(message);
+  }
+
+  function createSearchResult(page) {
+    const article = document.createElement("article");
+    article.className = `search-result ${typeClass(page)}`;
+
+    const tag = document.createElement("p");
+    tag.className = `tag ${typeClass(page)}`;
+    tag.textContent = page.type || "页面";
+
+    const title = document.createElement("h2");
+    const link = document.createElement("a");
+    link.href = toRelativeUrl(page.url);
+    link.textContent = page.title || "未命名页面";
+    title.appendChild(link);
+
+    const excerpt = document.createElement("p");
+    excerpt.textContent = page.excerpt || "";
+
+    article.append(tag, title, excerpt);
+    return article;
+  }
+
+  function createBacklinkCard(page) {
+    const link = document.createElement("a");
+    link.className = `backlink-card ${typeClass(page)}`;
+    link.href = toRelativeUrl(page.url);
+
+    const type = document.createElement("span");
+    type.textContent = page.type || "页面";
+
+    const title = document.createElement("strong");
+    title.textContent = page.title || "未命名页面";
+
+    const excerpt = document.createElement("small");
+    excerpt.textContent = page.excerpt || "";
+
+    link.append(type, title, excerpt);
+    return link;
   }
 
   function addSearchBehaviour() {
@@ -68,12 +121,19 @@
     const searchResults = document.querySelector("[data-search-results]");
     if (!searchInput || !searchResults) return;
 
-    const emptyState = searchResults.innerHTML;
+    const emptyState = searchResults.cloneNode(true);
+
+    function restoreEmptyState() {
+      clearElement(searchResults);
+      Array.from(emptyState.childNodes).forEach((node) => {
+        searchResults.appendChild(node.cloneNode(true));
+      });
+    }
 
     function render(query) {
       const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
       if (!words.length) {
-        searchResults.innerHTML = emptyState;
+        restoreEmptyState();
         return;
       }
 
@@ -92,17 +152,12 @@
         .sort((a, b) => b.score - a.score || String(a.page.title).localeCompare(String(b.page.title), "zh-CN"));
 
       if (!results.length) {
-        searchResults.innerHTML = '<p class="muted">没有找到匹配内容。可以换一个关键词试试。</p>';
+        appendMutedMessage(searchResults, "没有找到匹配内容。可以换一个关键词试试。");
         return;
       }
 
-      searchResults.innerHTML = results.map(({ page }) => `
-        <article class="search-result ${typeClass(page)}">
-          <p class="tag ${typeClass(page)}">${page.type}</p>
-          <h2><a href="${toRelativeUrl(page.url)}">${page.title}</a></h2>
-          <p>${page.excerpt}</p>
-        </article>
-      `).join("");
+      clearElement(searchResults);
+      results.forEach(({ page }) => searchResults.appendChild(createSearchResult(page)));
     }
 
     const params = new URLSearchParams(window.location.search);
@@ -133,17 +188,12 @@
     });
 
     if (!backlinks.length) {
-      container.innerHTML = '<p class="muted">暂时没有页面链接到这里。</p>';
+      appendMutedMessage(container, "暂时没有页面链接到这里。");
       return;
     }
 
-    container.innerHTML = backlinks.map((page) => `
-      <a class="backlink-card ${typeClass(page)}" href="${toRelativeUrl(page.url)}">
-        <span>${page.type}</span>
-        <strong>${page.title}</strong>
-        <small>${page.excerpt}</small>
-      </a>
-    `).join("");
+    clearElement(container);
+    backlinks.forEach((page) => container.appendChild(createBacklinkCard(page)));
   }
 
   function enhanceDataWikiLinks() {
