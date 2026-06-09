@@ -1,0 +1,42 @@
+/* Force the section navigation to stay as a vertical left sidebar. */
+.site-sidebar,
+@media (max-width: 1380px) {
+  .site-sidebar {
+    position: fixed;
+    top: 96px;
+    left: max(18px, calc((100vw - 1080px) / 2 - 150px));
+    width: 128px;
+    margin: 0;
+    display: grid;
+    grid-auto-flow: row;
+    align-items: stretch;
+    justify-items: stretch;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+}
+
+.site-sidebar p {
+  margin: 0 0 4px;
+  font-weight: 900;
+}
+
+.site-sidebar a {
+  display: block;
+  font-weight: 900;
+}
+
+@media (max-width: 720px) {
+  .site-sidebar {
+    top: 118px;
+    left: 10px;
+    width: 108px;
+    padding: 10px;
+  }
+
+  .site-sidebar p,
+  .site-sidebar a {
+    white-space: normal;
+    font-size: 12px;
+  }
+}
