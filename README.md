@@ -1,2 +1,2 @@
 # chaos-blog
-my blohg
+my blog
