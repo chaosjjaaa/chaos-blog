@@ -10,21 +10,25 @@ section_key: misc
   <p class="lead">自动收录 <code>_posts/misc/</code> 目录下的文章。</p>
 
   <div class="card-grid section-card-grid">
-    {% assign section_posts = site.posts | where_exp: "post", "post.path contains '_posts/misc/' or post.section == 'misc'" %}
-    {% for post in section_posts %}
-      <article class="card">
-        <p class="tag">随笔</p>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        {% if post.description %}
-          <p>{{ post.description }}</p>
-        {% elsif post.excerpt %}
-          <p>{{ post.excerpt | strip_html | truncate: 90 }}</p>
-        {% endif %}
-        <p class="meta">{{ post.date | date: "%Y-%m-%d" }}</p>
-        <a href="{{ post.url | relative_url }}">阅读全文 →</a>
-      </article>
-    {% else %}
-      <p class="muted">这个分区还没有文章。</p>
+    {% assign has_posts = false %}
+    {% for post in site.posts %}
+      {% if post.path contains '_posts/misc/' %}
+        {% assign has_posts = true %}
+        <article class="card">
+          <p class="tag">随笔</p>
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          {% if post.description %}
+            <p>{{ post.description }}</p>
+          {% elsif post.excerpt %}
+            <p>{{ post.excerpt | strip_html | truncate: 90 }}</p>
+          {% endif %}
+          <p class="meta">{{ post.date | date: "%Y-%m-%d" }}</p>
+          <a href="{{ post.url | relative_url }}">阅读全文 →</a>
+        </article>
+      {% endif %}
     {% endfor %}
+    {% unless has_posts %}
+      <p class="muted">这个分区还没有文章。</p>
+    {% endunless %}
   </div>
 </main>
