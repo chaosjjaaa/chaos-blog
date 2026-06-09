@@ -1,55 +1,95 @@
-/* Force the section navigation to stay as a vertical left sidebar. */
+/* Full-height left sidebar layout. */
+:root {
+  --left-sidebar-width: 176px;
+}
+
+body {
+  padding-left: var(--left-sidebar-width);
+}
+
 .site-sidebar {
   position: fixed;
-  top: 96px;
-  left: max(18px, calc((100vw - 1080px) / 2 - 150px));
-  width: 128px;
+  inset: 0 auto 0 0;
+  z-index: 30;
+  width: var(--left-sidebar-width);
+  height: 100vh;
+  height: 100dvh;
   margin: 0;
-  display: grid;
-  grid-auto-flow: row;
+  padding: 84px 16px 18px;
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
-  justify-items: stretch;
-  gap: 8px;
-  flex-wrap: nowrap;
+  gap: 10px;
+  border: 0;
+  border-right: 1px solid #eadfcb;
+  border-radius: 0;
+  background: rgba(255, 253, 247, 0.96);
+  box-shadow: 8px 0 28px rgba(36, 48, 66, 0.06);
+  backdrop-filter: blur(10px);
 }
 
 .site-sidebar p {
-  margin: 0 0 4px;
+  margin: 0 0 8px;
+  padding: 0 8px;
+  color: #906b24;
+  font-size: 14px;
   font-weight: 900;
 }
 
 .site-sidebar a {
   display: block;
+  padding: 10px 12px;
+  border-radius: 14px;
+  color: #526071;
+  font-size: 14px;
   font-weight: 900;
+  line-height: 1.35;
+  white-space: normal;
 }
 
-@media (max-width: 1380px) {
-  .site-sidebar {
-    position: fixed;
-    top: 96px;
-    left: 18px;
-    width: 128px;
-    margin: 0;
-    display: grid;
-    grid-auto-flow: row;
-    align-items: stretch;
-    justify-items: stretch;
-    gap: 8px;
-    flex-wrap: nowrap;
-  }
+.site-sidebar a:hover,
+.site-sidebar a.active {
+  background: #f0e2c5;
+  color: #73531c;
+  text-decoration: none;
 }
 
 @media (max-width: 720px) {
-  .site-sidebar {
-    top: 118px;
-    left: 10px;
-    width: 108px;
-    padding: 10px;
+  :root {
+    --left-sidebar-width: 104px;
   }
 
-  .site-sidebar p,
-  .site-sidebar a {
-    white-space: normal;
+  .site-sidebar {
+    width: var(--left-sidebar-width);
+    padding: 116px 8px 14px;
+    gap: 7px;
+  }
+
+  .site-sidebar p {
+    margin-bottom: 6px;
+    padding: 0 6px;
     font-size: 12px;
+  }
+
+  .site-sidebar a {
+    padding: 8px 6px;
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --left-sidebar-width: 88px;
+  }
+
+  .site-sidebar {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .site-sidebar a {
+    padding: 7px 4px;
+    font-size: 11px;
   }
 }
