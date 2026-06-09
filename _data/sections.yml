@@ -1,0 +1,29 @@
+math:
+  title: 数学笔记
+  label: 数学笔记
+  dir: _posts/math/
+  description: 自动收录 _posts/math/ 目录下的文章。
+
+poem:
+  title: 诗歌
+  label: 诗歌
+  dir: _posts/poem/
+  description: 自动收录 _posts/poem/ 目录下的文章。
+
+project:
+  title: 项目
+  label: 项目
+  dir: _posts/project/
+  description: 自动收录 _posts/project/ 目录下的文章。
+
+misc:
+  title: 随笔
+  label: 随笔
+  dir: _posts/misc/
+  description: 自动收录 _posts/misc/ 目录下的文章。
+
+other:
+  title: 其他
+  label: 其他
+  dir: _posts/other/
+  description: 自动收录 _posts/other/ 目录下的文章。
