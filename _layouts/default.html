@@ -59,6 +59,10 @@
   <aside class="site-sidebar" aria-label="文章分区">
     <a class="sidebar-brand" href="{{ '/' | relative_url }}">Chaos Blog</a>
     <div class="sidebar-scroll">
+      <nav class="sidebar-nav sidebar-primary" aria-label="主页导航">
+        <a {% if page.url == '/' %}class="active"{% endif %} href="{{ '/' | relative_url }}">主页</a>
+      </nav>
+
       <p>分区</p>
       <nav class="sidebar-nav" aria-label="分区导航">
         <a {% if page.section_key == 'math' %}class="active"{% endif %} href="{{ '/sections/math.html' | relative_url }}">数学笔记</a>
