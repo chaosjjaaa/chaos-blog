@@ -1,65 +1,33 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>关于 - Chaos Blog</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="logo" href="index.html">Chaos Blog</a>
-      <nav>
-        <a href="index.html">主页</a>
-        <a href="poems.html">诗词摘抄</a>
-        <a href="search.html">搜索</a>
-        <a href="about.html">关于</a>
-      </nav>
-    </div>
-  </header>
+---
+layout: default
+title: 关于
+---
 
-  <main class="container section page-content">
-    <h1>关于本站</h1>
-    <p class="lead">
-      这是一个用于学习 HTML、CSS 和 GitHub Pages 的静态博客示例。
+<main class="container section page-content">
+  <h1>关于本站</h1>
+  <p class="lead">
+    Chaos的博客，用来记录学习笔记、项目整理和个人思考。
+  </p>
+
+  <div class="about-box">
+    <h2>这里会放什么内容？</h2>
+    <ul>
+      <li>数学和编程学习笔记</li>
+      <li>项目记录</li>
+      <li>个人整理</li>
+    </ul>
+  </div>
+
+  <div class="about-box">
+    <h2>站点结构</h2>
+    <p>
+      现在本站已融合 Jekyll：可以用 Markdown 写文章，通过 GitHub Pages 自动构建成静态网页。
     </p>
+  </div>
 
-    <div class="about-box">
-      <h2>可以放什么内容？</h2>
-      <ul>
-        <li>诗词摘抄</li>
-        <li>学习笔记</li>
-        <li>项目记录</li>
-        <li>个人介绍</li>
-      </ul>
-    </div>
-
-    <div class="about-box">
-      <h2>下一步可以学什么？</h2>
-      <p>
-        你可以继续学习 CSS Flex 布局、响应式设计、文章列表页、Markdown 博客生成器，
-        也可以把这个网站慢慢改成自己的正式博客。
-      </p>
-      <p>
-        现在本站已经有了 <a data-wikilink="诗词摘抄" href="poems.html">诗词摘抄</a>、搜索页和双链引用，后续添加新文章时只需要同步更新内容索引。
-      </p>
-    </div>
-
-    <section class="backlinks-section">
-      <h2>双链引用</h2>
-      <p class="muted">这些页面提到了或链接到了「关于本站」。</p>
-      <div class="backlinks-list" data-backlinks></div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Chaos Blog.</p>
-    </div>
-  </footer>
-
-  <script src="blog-data.js"></script>
-  <script src="blog.js"></script>
-</body>
-</html>
+  <section class="backlinks-section">
+    <h2>双链引用</h2>
+    <p class="muted">这些页面提到了或链接到了「关于本站」。</p>
+    <div class="backlinks-list" data-backlinks></div>
+  </section>
+</main>
