@@ -1,60 +1,6 @@
 <!doctype html>
 <html lang="{{ site.lang | default: 'zh-CN' }}">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=overlays-content" />
-  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}" />
-  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
-  {% if page.url == '/' %}
-  <link rel="stylesheet" href="{{ '/home.css' | relative_url }}" />
-  {% endif %}
-  <link rel="stylesheet" href="{{ '/sidebar.css' | relative_url }}" />
-  <style>
-    .article blockquote {
-      margin: 18px 0;
-      padding: 16px 18px;
-      border-left: 4px solid #d6b36a;
-      border-radius: 14px;
-      background: #f9efd9;
-      font-size: 16px;
-      font-weight: 400;
-      text-align: left;
-    }
-
-    .article blockquote p {
-      margin: 0.35em 0;
-    }
-
-    .article h2 {
-      font-size: clamp(24px, 4vw, 34px);
-      line-height: 1.25;
-    }
-
-    .article h3 {
-      margin-top: 28px;
-      font-size: 22px;
-    }
-
-    .article mjx-container {
-      max-width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-    }
-  </style>
-  {% if page.mathjax %}
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [["\\(", "\\)"], ["$", "$"]],
-        displayMath: [["\\[", "\\]"], ["$$", "$$"]]
-      },
-      svg: { fontCache: "global" }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  {% endif %}
-</head>
+{% include head.html %}
 <body>
   <aside class="site-sidebar" aria-label="文章分区">
     <a class="sidebar-brand" href="{{ '/' | relative_url }}">Chaos Blog</a>
@@ -74,32 +20,11 @@
     </div>
   </aside>
 
-  <header class="site-header">
-    <div class="container nav">
-      <a class="logo" href="{{ '/' | relative_url }}">Chaos Blog</a>
-      <nav>
-        <a href="{{ '/' | relative_url }}">主页</a>
-        <a href="{{ '/search.html' | relative_url }}">文章</a>
-        <a href="{{ '/about.html' | relative_url }}">关于</a>
-      </nav>
-    </div>
-  </header>
+  {% include header.html %}
 
   {{ content }}
 
-  <footer class="site-footer">
-    <div class="container">
-      {% if page.url == '/' %}
-        <div class="footer-tagline">
-          <strong>Chaos的博客</strong>
-          <p>记录学习、项目和思考。</p>
-        </div>
-      {% endif %}
-      <p>© 2026 Chaos Blog. Powered by GitHub Pages + Jekyll.</p>
-    </div>
-  </footer>
-
-  <script defer src="{{ '/blog-data.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
-  <script defer src="{{ '/blog.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  {% include footer.html %}
+  {% include scripts.html %}
 </body>
 </html>
