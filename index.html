@@ -3,10 +3,71 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chaos大神</title>
+  <title>Chaos Blog - 主页</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>BZD</h1>
-  <p>看见扣1</p>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="index.html">Chaos Blog</a>
+      <nav>
+        <a href="index.html">主页</a>
+        <a href="poems.html">诗词摘抄</a>
+        <a href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">GitHub Pages 静态博客练习</p>
+        <h1>用 HTML 和 CSS 搭一个安静的小博客</h1>
+        <p class="hero-text">
+          这里可以放你的文章、诗词摘抄、学习笔记和项目记录。这个页面只有 HTML 和 CSS，适合用来练习网页结构、排版和链接跳转。
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="poems.html">查看诗词摘抄</a>
+          <a class="button ghost" href="about.html">了解本站</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2>最近内容</h2>
+      <div class="card-grid">
+        <article class="card">
+          <p class="tag">诗词</p>
+          <h3><a href="posts/jingyesi.html">《静夜思》小记</a></h3>
+          <p>床前明月光，疑是地上霜。一个很短的夜晚，却写出了很长的乡愁。</p>
+        </article>
+
+        <article class="card">
+          <p class="tag">摘抄</p>
+          <h3><a href="poems.html#spring">春天的诗</a></h3>
+          <p>春眠不觉晓，处处闻啼鸟。用简单的句子记录早春清晨的感觉。</p>
+        </article>
+
+        <article class="card">
+          <p class="tag">学习</p>
+          <h3>我的网页练习计划</h3>
+          <p>先学会页面结构，再学习 CSS 布局，最后尝试响应式设计和博客模板。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container quote-box">
+      <blockquote>
+        “欲穷千里目，更上一层楼。”
+      </blockquote>
+      <p>把网页一点点改好，也像登楼一样。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Chaos Blog. Powered by GitHub Pages.</p>
+    </div>
+  </footer>
 </body>
 </html>
