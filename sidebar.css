@@ -1,19 +1,16 @@
 /* Force the section navigation to stay as a vertical left sidebar. */
-.site-sidebar,
-@media (max-width: 1380px) {
-  .site-sidebar {
-    position: fixed;
-    top: 96px;
-    left: max(18px, calc((100vw - 1080px) / 2 - 150px));
-    width: 128px;
-    margin: 0;
-    display: grid;
-    grid-auto-flow: row;
-    align-items: stretch;
-    justify-items: stretch;
-    gap: 8px;
-    flex-wrap: nowrap;
-  }
+.site-sidebar {
+  position: fixed;
+  top: 96px;
+  left: max(18px, calc((100vw - 1080px) / 2 - 150px));
+  width: 128px;
+  margin: 0;
+  display: grid;
+  grid-auto-flow: row;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 8px;
+  flex-wrap: nowrap;
 }
 
 .site-sidebar p {
@@ -24,6 +21,22 @@
 .site-sidebar a {
   display: block;
   font-weight: 900;
+}
+
+@media (max-width: 1380px) {
+  .site-sidebar {
+    position: fixed;
+    top: 96px;
+    left: 18px;
+    width: 128px;
+    margin: 0;
+    display: grid;
+    grid-auto-flow: row;
+    align-items: stretch;
+    justify-items: stretch;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
 }
 
 @media (max-width: 720px) {
