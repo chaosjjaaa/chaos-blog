@@ -1,34 +1,5 @@
 ---
-layout: default
+layout: section
 title: 其他
 section_key: other
 ---
-
-<main class="container section section-page">
-  <p class="eyebrow">分区</p>
-  <h1>其他</h1>
-  <p class="lead">自动收录 <code>_posts/other/</code> 目录下的文章。</p>
-
-  <div class="card-grid section-card-grid">
-    {% assign has_posts = false %}
-    {% for post in site.posts %}
-      {% if post.path contains '_posts/other/' %}
-        {% assign has_posts = true %}
-        <article class="card">
-          <p class="tag">其他</p>
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-          {% if post.description %}
-            <p>{{ post.description }}</p>
-          {% elsif post.excerpt %}
-            <p>{{ post.excerpt | strip_html | truncate: 90 }}</p>
-          {% endif %}
-          <p class="meta">{{ post.date | date: "%Y-%m-%d" }}</p>
-          <a href="{{ post.url | relative_url }}">阅读全文 →</a>
-        </article>
-      {% endif %}
-    {% endfor %}
-    {% unless has_posts %}
-      <p class="muted">这个分区还没有文章。</p>
-    {% endunless %}
-  </div>
-</main>
