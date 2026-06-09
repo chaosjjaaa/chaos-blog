@@ -44,6 +44,10 @@
     return typeClassMap[page.type] || "type-page";
   }
 
+  function displayLabel(page) {
+    return page.label || page.type || "页面";
+  }
+
   function normalizeText(value) {
     return String(value || "")
       .normalize("NFKC")
@@ -74,6 +78,7 @@
     return normalizeText([
       page.title,
       page.type,
+      displayLabel(page),
       page.excerpt,
       page.content,
       (page.aliases || []).join(" "),
@@ -130,7 +135,7 @@
 
     const tag = document.createElement("p");
     tag.className = `tag ${typeClass(page)}`;
-    tag.textContent = page.type || "页面";
+    tag.textContent = displayLabel(page);
 
     const title = document.createElement("h2");
     const link = document.createElement("a");
@@ -151,7 +156,7 @@
     link.href = toRelativeUrl(page.url);
 
     const type = document.createElement("span");
-    type.textContent = page.type || "页面";
+    type.textContent = displayLabel(page);
 
     const title = document.createElement("strong");
     title.textContent = page.title || "未命名页面";
@@ -190,6 +195,7 @@
           const score = words.reduce((total, word) => {
             if (normalizeText(page.title).includes(word)) return total + 5;
             if (normalizeText((page.aliases || []).join(" ")).includes(word)) return total + 4;
+            if (normalizeText(displayLabel(page)).includes(word)) return total + 3;
             if (haystack.includes(word)) return total + 1;
             return total;
           }, 0);
