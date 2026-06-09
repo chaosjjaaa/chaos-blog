@@ -8,24 +8,36 @@
     "文章": "type-post"
   };
 
-  function currentPath() {
-    const path = window.location.pathname.replace(/\/+/g, "/").replace(/^\//, "");
-    if (!path || path.endsWith("/")) return "index.html";
+  function normalizePath(url) {
+    const link = document.createElement("a");
+    link.href = url;
+    let path = link.pathname.replace(/\/+/g, "/").replace(/^\//, "");
+    if (!path || path.endsWith("/")) path += "index.html";
     return path;
+  }
+
+  function currentPath() {
+    return normalizePath(window.location.href);
+  }
+
+  function pagePath(page) {
+    return normalizePath(page.url || "index.html");
   }
 
   function isCurrentPage(page) {
     const path = currentPath();
-    return path === page.url || path.endsWith("/" + page.url);
+    const target = pagePath(page);
+    return path === target || path.endsWith("/" + target);
   }
 
   function isPostPage() {
     const current = pages.find(isCurrentPage);
-    return Boolean(current && current.url.startsWith("posts/"));
+    return Boolean(current && pagePath(current).startsWith("posts/"));
   }
 
   function toRelativeUrl(url) {
-    return isPostPage() && !url.startsWith("../") ? "../" + url : url;
+    const target = pagePath({ url });
+    return isPostPage() && !target.startsWith("../") ? "../" + target : target;
   }
 
   function typeClass(page) {
@@ -41,6 +53,14 @@
       (page.aliases || []).join(" "),
       (page.keywords || []).join(" ")
     ].join(" ").toLowerCase();
+  }
+
+  function findPageByName(name) {
+    const target = name.trim().toLowerCase();
+    return pages.find((page) => {
+      const names = [page.title].concat(page.aliases || []);
+      return names.some((item) => String(item).trim().toLowerCase() === target);
+    });
   }
 
   function addSearchBehaviour() {
@@ -61,7 +81,7 @@
         .map((page) => {
           const haystack = makeText(page);
           const score = words.reduce((total, word) => {
-            if (page.title.toLowerCase().includes(word)) return total + 5;
+            if (String(page.title).toLowerCase().includes(word)) return total + 5;
             if ((page.aliases || []).join(" ").toLowerCase().includes(word)) return total + 4;
             if (haystack.includes(word)) return total + 1;
             return total;
@@ -69,7 +89,7 @@
           return { page, score };
         })
         .filter((item) => item.score > 0)
-        .sort((a, b) => b.score - a.score || a.page.title.localeCompare(b.page.title, "zh-CN"));
+        .sort((a, b) => b.score - a.score || String(a.page.title).localeCompare(String(b.page.title), "zh-CN"));
 
       if (!results.length) {
         searchResults.innerHTML = '<p class="muted">没有找到匹配内容。可以换一个关键词试试。</p>';
@@ -106,10 +126,10 @@
 
     const names = [current.title].concat(current.aliases || []);
     const backlinks = pages.filter((page) => {
-      if (page.url === current.url) return false;
+      if (pagePath(page) === pagePath(current)) return false;
       const explicitLinks = page.links || [];
       const searchable = makeText(page);
-      return explicitLinks.some((link) => names.includes(link)) || names.some((name) => searchable.includes(name.toLowerCase()));
+      return explicitLinks.some((link) => names.includes(link)) || names.some((name) => searchable.includes(String(name).toLowerCase()));
     });
 
     if (!backlinks.length) {
@@ -126,17 +146,64 @@
     `).join("");
   }
 
-  function enhanceWikiLinks() {
+  function enhanceDataWikiLinks() {
     document.querySelectorAll("[data-wikilink]").forEach((link) => {
       const target = link.getAttribute("data-wikilink") || link.textContent.trim();
-      const page = pages.find((item) => item.title === target || (item.aliases || []).includes(target));
+      const page = findPageByName(target);
       if (!page) return;
       link.setAttribute("href", toRelativeUrl(page.url));
       link.classList.add("wiki-link", typeClass(page));
     });
   }
 
+  function enhanceMarkdownWikiLinks() {
+    const article = document.querySelector(".article");
+    if (!article) return;
+
+    const skipTags = new Set(["A", "CODE", "PRE", "SCRIPT", "STYLE", "TEXTAREA"]);
+    const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.includes("[[")) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement && skipTags.has(node.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach((node) => {
+      const parts = node.nodeValue.split(/(\[\[[^\]]+\]\])/g);
+      if (parts.length === 1) return;
+
+      const fragment = document.createDocumentFragment();
+      parts.forEach((part) => {
+        const match = part.match(/^\[\[(.+)\]\]$/);
+        if (!match) {
+          fragment.appendChild(document.createTextNode(part));
+          return;
+        }
+
+        const label = match[1].trim();
+        const page = findPageByName(label);
+        if (!page) {
+          fragment.appendChild(document.createTextNode(label));
+          return;
+        }
+
+        const link = document.createElement("a");
+        link.href = toRelativeUrl(page.url);
+        link.textContent = label;
+        link.classList.add("wiki-link", typeClass(page));
+        fragment.appendChild(link);
+      });
+
+      node.parentNode.replaceChild(fragment, node);
+    });
+  }
+
   addSearchBehaviour();
   addBacklinks();
-  enhanceWikiLinks();
+  enhanceDataWikiLinks();
+  enhanceMarkdownWikiLinks();
 })();
