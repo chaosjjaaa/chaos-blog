@@ -18,11 +18,11 @@ title: Chaos的博客
 </section>
 
 <section class="container section home-posts">
-  <h2>最近内容</h2>
+  <h2>最近文章</h2>
 
   {% if site.posts.size > 0 %}
     <div class="card-grid">
-      {% for post in site.posts %}
+      {% for post in site.posts limit: 6 %}
         <article class="card">
           {% if post.categories and post.categories.size > 0 %}
             <p class="tag">{{ post.categories | first }}</p>
@@ -44,6 +44,6 @@ title: Chaos的博客
       {% endfor %}
     </div>
   {% else %}
-    <p class="muted">还没有文章。把 Markdown 文件放进 <code>_posts/</code> 后，文章会自动显示在这里。</p>
+    <p class="muted">还没有文章。把 Markdown 文件放进 <code>_posts/math/</code>、<code>_posts/poem/</code> 等分区目录后，文章会自动显示在这里。</p>
   {% endif %}
 </section>
