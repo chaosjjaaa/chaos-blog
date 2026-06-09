@@ -11,7 +11,7 @@
   function normalizePath(url) {
     const link = document.createElement("a");
     link.href = url;
-    let path = link.pathname.replace(/\/+g, "/").replace(/^\//, "");
+    let path = link.pathname.replace(/\/+/g, "/").replace(/^\//, "");
     if (!path || path.endsWith("/")) path += "index.html";
     return path;
   }
