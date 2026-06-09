@@ -37,80 +37,6 @@
       overflow-x: auto;
       overflow-y: hidden;
     }
-
-    .footer-tagline {
-      margin-bottom: 14px;
-      color: #526071;
-    }
-
-    .footer-tagline strong {
-      display: block;
-      color: #243042;
-      font-size: 18px;
-    }
-
-    .footer-tagline p {
-      margin: 4px 0 0;
-    }
-
-    @media (max-width: 720px) {
-      .home-posts.section {
-        padding: 28px 0;
-      }
-
-      .home-posts h2 {
-        margin-bottom: 12px;
-        font-size: 22px;
-      }
-
-      .home-posts .card-grid {
-        gap: 10px;
-      }
-
-      .home-posts .card {
-        padding: 14px 16px;
-        border-radius: 16px;
-        box-shadow: 0 6px 18px rgba(36, 48, 66, 0.045);
-      }
-
-      .home-posts .card h3 {
-        margin: 2px 0 6px;
-        font-size: 17px;
-        line-height: 1.35;
-      }
-
-      .home-posts .card p {
-        margin: 6px 0;
-        font-size: 14px;
-        line-height: 1.55;
-      }
-
-      .home-posts .card .tag {
-        margin-bottom: 4px;
-        padding: 2px 8px;
-        font-size: 12px;
-      }
-
-      .home-posts .card .meta {
-        margin-top: 8px;
-        font-size: 12px;
-      }
-
-      .home-posts .card > a:last-child {
-        display: inline-block;
-        margin-top: 2px;
-        font-size: 14px;
-      }
-
-      .footer-tagline {
-        margin-bottom: 10px;
-        font-size: 14px;
-      }
-
-      .footer-tagline strong {
-        font-size: 16px;
-      }
-    }
   </style>
   {% if page.mathjax %}
   <script>
@@ -136,6 +62,14 @@
       </nav>
     </div>
   </header>
+
+  <aside class="site-sidebar" aria-label="文章分区">
+    <p>分区</p>
+    <a {% if page.section_key == 'math' %}class="active"{% endif %} href="{{ '/sections/math.html' | relative_url }}">数学笔记</a>
+    <a {% if page.section_key == 'poem' %}class="active"{% endif %} href="{{ '/sections/poem.html' | relative_url }}">诗歌</a>
+    <a {% if page.section_key == 'project' %}class="active"{% endif %} href="{{ '/sections/project.html' | relative_url }}">项目</a>
+    <a {% if page.section_key == 'misc' %}class="active"{% endif %} href="{{ '/sections/misc.html' | relative_url }}">随笔</a>
+  </aside>
 
   {{ content }}
 
