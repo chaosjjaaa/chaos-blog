@@ -22,6 +22,18 @@ misc:
   dir: _posts/misc/
   description: 自动收录 _posts/misc/ 目录下的文章。
 
+novel:
+  title: 小说
+  label: 小说
+  dir: _posts/novel/
+  description: 自动收录 _posts/novel/ 目录下的文章。
+
+drafts:
+  title: 草稿
+  label: 草稿
+  dir: _posts/drafts/
+  description: 自动收录 _posts/drafts/ 目录下的文章。
+
 other:
   title: 其他
   label: 其他
