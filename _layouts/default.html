@@ -56,6 +56,19 @@
   {% endif %}
 </head>
 <body>
+  <aside class="site-sidebar" aria-label="文章分区">
+    <a class="sidebar-brand" href="{{ '/' | relative_url }}">Chaos Blog</a>
+    <div class="sidebar-scroll">
+      <p>分区</p>
+      <nav class="sidebar-nav" aria-label="分区导航">
+        <a {% if page.section_key == 'math' %}class="active"{% endif %} href="{{ '/sections/math.html' | relative_url }}">数学笔记</a>
+        <a {% if page.section_key == 'poem' %}class="active"{% endif %} href="{{ '/sections/poem.html' | relative_url }}">诗歌</a>
+        <a {% if page.section_key == 'project' %}class="active"{% endif %} href="{{ '/sections/project.html' | relative_url }}">项目</a>
+        <a {% if page.section_key == 'misc' %}class="active"{% endif %} href="{{ '/sections/misc.html' | relative_url }}">随笔</a>
+      </nav>
+    </div>
+  </aside>
+
   <header class="site-header">
     <div class="container nav">
       <a class="logo" href="{{ '/' | relative_url }}">Chaos Blog</a>
@@ -66,14 +79,6 @@
       </nav>
     </div>
   </header>
-
-  <aside class="site-sidebar" aria-label="文章分区">
-    <p>分区</p>
-    <a {% if page.section_key == 'math' %}class="active"{% endif %} href="{{ '/sections/math.html' | relative_url }}">数学笔记</a>
-    <a {% if page.section_key == 'poem' %}class="active"{% endif %} href="{{ '/sections/poem.html' | relative_url }}">诗歌</a>
-    <a {% if page.section_key == 'project' %}class="active"{% endif %} href="{{ '/sections/project.html' | relative_url }}">项目</a>
-    <a {% if page.section_key == 'misc' %}class="active"{% endif %} href="{{ '/sections/misc.html' | relative_url }}">随笔</a>
-  </aside>
 
   {{ content }}
 
