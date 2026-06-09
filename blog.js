@@ -11,7 +11,7 @@
   function normalizePath(url) {
     const link = document.createElement("a");
     link.href = url;
-    let path = link.pathname.replace(/\/+/g, "/").replace(/^\//, "");
+    let path = link.pathname.replace(/\/+/, "/").replace(/^\//, "");
     if (!path || path.endsWith("/")) path += "index.html";
     return path;
   }
@@ -44,25 +44,72 @@
     return typeClassMap[page.type] || "type-page";
   }
 
+  function normalizeText(value) {
+    return String(value || "")
+      .normalize("NFKC")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function uniqueValues(values) {
+    const seen = new Set();
+    const result = [];
+
+    values.forEach((value) => {
+      const normalized = normalizeText(value);
+      if (!normalized || seen.has(normalized)) return;
+      seen.add(normalized);
+      result.push(normalized);
+    });
+
+    return result;
+  }
+
+  function pageNames(page) {
+    return uniqueValues([page.title].concat(page.aliases || []));
+  }
+
   function makeText(page) {
-    return [
+    return normalizeText([
       page.title,
       page.type,
       page.excerpt,
       page.content,
       (page.aliases || []).join(" "),
       (page.keywords || []).join(" ")
-    ].join(" ").toLowerCase();
+    ].join(" "));
+  }
+
+  function escapeRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function isAsciiName(value) {
+    return /^[a-z0-9][a-z0-9 _-]*$/i.test(value);
+  }
+
+  function isSearchableName(value) {
+    const compact = value.replace(/\s+/g, "");
+    return compact.length >= 3;
+  }
+
+  function textMentionsName(text, name) {
+    if (!isSearchableName(name)) return false;
+
+    if (isAsciiName(name)) {
+      const pattern = new RegExp(`(^|[^a-z0-9])${escapeRegExp(name)}(?=$|[^a-z0-9])`, "i");
+      return pattern.test(text);
+    }
+
+    return text.includes(name);
   }
 
   function findPageByName(name) {
-    const target = String(name || "").trim().toLowerCase();
+    const target = normalizeText(name);
     if (!target) return null;
 
-    return pages.find((page) => {
-      const names = [page.title].concat(page.aliases || []);
-      return names.some((item) => String(item).trim().toLowerCase() === target);
-    });
+    return pages.find((page) => pageNames(page).includes(target));
   }
 
   function clearElement(element) {
@@ -131,7 +178,7 @@
     }
 
     function render(query) {
-      const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      const words = normalizeText(query).split(/\s+/).filter(Boolean);
       if (!words.length) {
         restoreEmptyState();
         return;
@@ -141,8 +188,8 @@
         .map((page) => {
           const haystack = makeText(page);
           const score = words.reduce((total, word) => {
-            if (String(page.title).toLowerCase().includes(word)) return total + 5;
-            if ((page.aliases || []).join(" ").toLowerCase().includes(word)) return total + 4;
+            if (normalizeText(page.title).includes(word)) return total + 5;
+            if (normalizeText((page.aliases || []).join(" ")).includes(word)) return total + 4;
             if (haystack.includes(word)) return total + 1;
             return total;
           }, 0);
@@ -179,12 +226,16 @@
     const current = pages.find(isCurrentPage);
     if (!current) return;
 
-    const names = [current.title].concat(current.aliases || []);
+    const names = pageNames(current);
+    const nameSet = new Set(names);
     const backlinks = pages.filter((page) => {
       if (pagePath(page) === pagePath(current)) return false;
-      const explicitLinks = page.links || [];
+
+      const explicitLinks = uniqueValues(page.links || []);
+      if (explicitLinks.some((link) => nameSet.has(link))) return true;
+
       const searchable = makeText(page);
-      return explicitLinks.some((link) => names.includes(link)) || names.some((name) => searchable.includes(String(name).toLowerCase()));
+      return names.some((name) => textMentionsName(searchable, name));
     });
 
     if (!backlinks.length) {
@@ -237,7 +288,7 @@
         const label = match[1].trim();
         const page = findPageByName(label);
         if (!page) {
-          fragment.appendChild(document.createTextNode(label));
+          fragment.appendChild(document.createTextNode(part));
           return;
         }
 
