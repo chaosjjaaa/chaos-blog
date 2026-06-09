@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 被遗忘的回声
-date: 2026-06-09
+date: 2025-08-26
 section: novel
 categories: 小说
 description: 一个关于时间回溯、记忆代价与自我迷失的故事。
