@@ -6,6 +6,38 @@
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}" />
   <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  <style>
+    .article blockquote {
+      margin: 18px 0;
+      padding: 16px 18px;
+      border-left: 4px solid #d6b36a;
+      border-radius: 14px;
+      background: #f9efd9;
+      font-size: 16px;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    .article blockquote p {
+      margin: 0.35em 0;
+    }
+
+    .article h2 {
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.25;
+    }
+
+    .article h3 {
+      margin-top: 28px;
+      font-size: 22px;
+    }
+
+    .article mjx-container {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+  </style>
   {% if page.mathjax %}
   <script>
     window.MathJax = {
