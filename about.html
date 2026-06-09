@@ -13,6 +13,7 @@
       <nav>
         <a href="index.html">主页</a>
         <a href="poems.html">诗词摘抄</a>
+        <a href="search.html">搜索</a>
         <a href="about.html">关于</a>
       </nav>
     </div>
@@ -40,7 +41,16 @@
         你可以继续学习 CSS Flex 布局、响应式设计、文章列表页、Markdown 博客生成器，
         也可以把这个网站慢慢改成自己的正式博客。
       </p>
+      <p>
+        现在本站已经有了 <a data-wikilink="诗词摘抄" href="poems.html">诗词摘抄</a>、搜索页和双链引用，后续添加新文章时只需要同步更新内容索引。
+      </p>
     </div>
+
+    <section class="backlinks-section">
+      <h2>双链引用</h2>
+      <p class="muted">这些页面提到了或链接到了「关于本站」。</p>
+      <div class="backlinks-list" data-backlinks></div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -48,5 +58,8 @@
       <p>© 2026 Chaos Blog.</p>
     </div>
   </footer>
+
+  <script src="blog-data.js"></script>
+  <script src="blog.js"></script>
 </body>
 </html>

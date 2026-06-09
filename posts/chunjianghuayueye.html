@@ -8,23 +8,25 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-inner">
-      <h1 class="logo">Chaos Blog</h1>
-      <nav class="nav">
-        <a href="../index.html">首页</a>
-        <a href="../poems.html">诗词</a>
+    <div class="container nav">
+      <a class="logo" href="../index.html">Chaos Blog</a>
+      <nav>
+        <a href="../index.html">主页</a>
+        <a href="../poems.html">诗词摘抄</a>
+        <a href="../search.html">搜索</a>
         <a href="../about.html">关于</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container article-layout">
     <article class="article">
       <p class="tag">唐诗摘抄</p>
-      <h2>春江花月夜</h2>
+      <h1>春江花月夜</h1>
       <p class="meta">作者：张若虚 · 唐代</p>
 
-      <section class="poem">
+      <section class="poem-highlight">
+        <h2>原文节选</h2>
         <p>春江潮水连海平，海上明月共潮生。</p>
         <p>滟滟随波千万里，何处春江无月明。</p>
         <p>江流宛转绕芳甸，月照花林皆似霰。</p>
@@ -36,7 +38,7 @@
       </section>
 
       <section class="note">
-        <h3>小记</h3>
+        <h2>小记</h2>
         <p>
           《春江花月夜》写春江、明月、花林与人生感怀。
           这首诗的画面感很强，从江潮与月色写到时间、生命和思念。
@@ -47,14 +49,31 @@
         </p>
       </section>
 
+      <h2>相关链接</h2>
+      <p>
+        可以回到 <a data-wikilink="诗词摘抄" href="../poems.html">诗词摘抄</a>，也可以对照阅读
+        <a data-wikilink="《静夜思》小记" href="jingyesi.html">《静夜思》小记</a>。
+      </p>
+
+      <section class="backlinks-section">
+        <h2>双链引用</h2>
+        <p class="muted">这些页面提到了或链接到了「春江花月夜」。</p>
+        <div class="backlinks-list" data-backlinks></div>
+      </section>
+
       <p class="back-link">
-        <a href="../index.html">← 返回首页</a>
+        <a class="read-more" href="../index.html">← 返回首页</a>
       </p>
     </article>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Chaos Blog</p>
+    <div class="container">
+      <p>© 2026 Chaos Blog</p>
+    </div>
   </footer>
+
+  <script src="../blog-data.js"></script>
+  <script src="../blog.js"></script>
 </body>
 </html>

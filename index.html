@@ -13,6 +13,7 @@
       <nav>
         <a href="index.html">主页</a>
         <a href="poems.html">诗词摘抄</a>
+        <a href="search.html">搜索</a>
         <a href="about.html">关于</a>
       </nav>
     </div>
@@ -26,6 +27,10 @@
         <p class="hero-text">
           这里可以放你的文章、诗词摘抄、学习笔记和项目记录。这个页面只有 HTML 和 CSS，适合用来练习网页结构、排版和链接跳转。
         </p>
+        <form class="quick-search" action="search.html" method="get">
+          <input name="q" type="search" placeholder="搜索文章、诗句或关键词" aria-label="搜索文章、诗句或关键词" />
+          <button type="submit">搜索</button>
+        </form>
         <div class="hero-actions">
           <a class="button" href="poems.html">查看诗词摘抄</a>
           <a class="button ghost" href="about.html">了解本站</a>
@@ -43,7 +48,7 @@
         </article>
 
         <article class="card">
-          <h3>春江花月夜</h3>
+          <h3><a href="posts/chunjianghuayueye.html">春江花月夜</a></h3>
           <p>春江潮水连海平，海上明月共潮生。</p>
           <a href="posts/chunjianghuayueye.html">阅读全文 →</a>
         </article>
