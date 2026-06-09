@@ -9,11 +9,11 @@ body {
 
 .site-sidebar {
   position: fixed !important;
-  inset: 0 auto 0 0 !important;
+  inset: 0 auto auto 0 !important;
   z-index: 100 !important;
   width: var(--left-sidebar-width) !important;
+  min-height: 100vh !important;
   height: 100vh !important;
-  height: 100dvh !important;
   margin: 0 !important;
   padding: 12px !important;
   display: flex !important;
@@ -27,6 +27,13 @@ body {
   background: #f4efe6 !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
+}
+
+@supports (height: 100svh) {
+  .site-sidebar {
+    min-height: 100svh !important;
+    height: 100svh !important;
+  }
 }
 
 .sidebar-brand {
@@ -53,6 +60,7 @@ body {
   min-height: 0;
   overflow-y: auto;
   padding: 8px 0 16px;
+  overscroll-behavior: contain;
 }
 
 .site-sidebar p {
@@ -106,6 +114,14 @@ nav.sidebar-nav {
   justify-content: flex-end !important;
 }
 
+.quick-search input,
+.search-box input,
+.search-row input {
+  font-size: 16px;
+  scroll-margin-top: 96px;
+  scroll-margin-bottom: 42vh;
+}
+
 @media (max-width: 900px) {
   :root {
     --left-sidebar-width: 220px;
@@ -137,6 +153,13 @@ nav.sidebar-nav {
     min-height: 38px;
     padding: 0 10px !important;
     font-size: 13px !important;
+  }
+
+  .quick-search input,
+  .search-box input,
+  .search-row input {
+    scroll-margin-top: 72px;
+    scroll-margin-bottom: 48vh;
   }
 }
 
