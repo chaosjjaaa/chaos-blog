@@ -23,22 +23,25 @@
     aliases: ["Chaos Blog", "首页"],
     keywords: ["GitHub Pages", "Jekyll", "博客", "学习笔记"],
     excerpt: {{ site.description | jsonify }},
-    content: {{ site.description | append: ' ' | append: site.title | jsonify }},
+    content: {{ site.description | jsonify }},
     links: []
   });
 
-  {% assign normal_pages = site.pages | where_exp: "item", "item.title and item.url != '/'" %}
-  {% for item in normal_pages %}
+  {% for item in site.pages %}
+  {% if item.title %}
+  {% if item.url != '/' %}
   addPage({
     title: {{ item.title | jsonify }},
     url: {{ item.url | relative_url | jsonify }},
     type: "页面",
-    aliases: {{ item.aliases | default: empty | jsonify }},
-    keywords: {{ item.keywords | default: empty | jsonify }},
+    aliases: {{ item.aliases | jsonify }},
+    keywords: {{ item.keywords | jsonify }},
     excerpt: {{ item.description | default: item.excerpt | default: '' | strip_html | normalize_whitespace | jsonify }},
     content: {{ item.content | strip_html | normalize_whitespace | truncate: 1000 | jsonify }},
-    links: {{ item.links | default: empty | jsonify }}
+    links: {{ item.links | jsonify }}
   });
+  {% endif %}
+  {% endif %}
   {% endfor %}
 
   {% for post in site.posts %}
@@ -46,11 +49,11 @@
     title: {{ post.title | jsonify }},
     url: {{ post.url | relative_url | jsonify }},
     type: "文章",
-    aliases: {{ post.aliases | default: empty | jsonify }},
-    keywords: {{ post.keywords | default: post.categories | default: empty | jsonify }},
+    aliases: {{ post.aliases | jsonify }},
+    keywords: {{ post.keywords | default: post.categories | jsonify }},
     excerpt: {{ post.description | default: post.excerpt | default: '' | strip_html | normalize_whitespace | jsonify }},
     content: {{ post.content | strip_html | normalize_whitespace | truncate: 2000 | jsonify }},
-    links: {{ post.links | default: empty | jsonify }}
+    links: {{ post.links | jsonify }}
   });
   {% endfor %}
 
