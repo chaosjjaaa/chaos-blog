@@ -23,24 +23,7 @@ title: Chaos的博客
   {% if site.posts.size > 0 %}
     <div class="card-grid">
       {% for post in site.posts limit: 6 %}
-        <article class="card">
-          {% if post.categories and post.categories.size > 0 %}
-            <p class="tag">{{ post.categories | first }}</p>
-          {% else %}
-            <p class="tag">文章</p>
-          {% endif %}
-
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-
-          {% if post.description %}
-            <p>{{ post.description }}</p>
-          {% elsif post.excerpt %}
-            <p>{{ post.excerpt | strip_html | truncate: 90 }}</p>
-          {% endif %}
-
-          <p class="meta">{{ post.date | date: "%Y-%m-%d" }}</p>
-          <a href="{{ post.url | relative_url }}">阅读全文 →</a>
-        </article>
+        {% include post-card.html post=post %}
       {% endfor %}
     </div>
   {% else %}
