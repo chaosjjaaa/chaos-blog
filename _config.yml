@@ -2,7 +2,7 @@ title: Chaos Blog
 description: Chaos的博客
 lang: zh-CN
 timezone: Asia/Singapore
-url: "https://chaosjjaaa.github.io"
-baseurl: "/chaos-blog"
+url: "https://www.chaos.cn.mt"
+baseurl: ""
 markdown: kramdown
 permalink: /posts/:slug.html
