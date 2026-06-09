@@ -1,6 +1,13 @@
 (function () {
   const pages = window.BLOG_PAGES || [];
 
+  const typeClassMap = {
+    "首页": "type-home",
+    "归档": "type-archive",
+    "页面": "type-page",
+    "文章": "type-post"
+  };
+
   function currentPath() {
     const path = window.location.pathname.replace(/\/+/g, "/").replace(/^\//, "");
     if (!path || path.endsWith("/")) return "index.html";
@@ -19,6 +26,10 @@
 
   function toRelativeUrl(url) {
     return isPostPage() && !url.startsWith("../") ? "../" + url : url;
+  }
+
+  function typeClass(page) {
+    return typeClassMap[page.type] || "type-page";
   }
 
   function makeText(page) {
@@ -66,8 +77,8 @@
       }
 
       searchResults.innerHTML = results.map(({ page }) => `
-        <article class="search-result">
-          <p class="tag">${page.type}</p>
+        <article class="search-result ${typeClass(page)}">
+          <p class="tag ${typeClass(page)}">${page.type}</p>
           <h2><a href="${toRelativeUrl(page.url)}">${page.title}</a></h2>
           <p>${page.excerpt}</p>
         </article>
@@ -107,7 +118,7 @@
     }
 
     container.innerHTML = backlinks.map((page) => `
-      <a class="backlink-card" href="${toRelativeUrl(page.url)}">
+      <a class="backlink-card ${typeClass(page)}" href="${toRelativeUrl(page.url)}">
         <span>${page.type}</span>
         <strong>${page.title}</strong>
         <small>${page.excerpt}</small>
@@ -121,7 +132,7 @@
       const page = pages.find((item) => item.title === target || (item.aliases || []).includes(target));
       if (!page) return;
       link.setAttribute("href", toRelativeUrl(page.url));
-      link.classList.add("wiki-link");
+      link.classList.add("wiki-link", typeClass(page));
     });
   }
 
