@@ -1,30 +1,24 @@
 (function () {
   const pages = window.BLOG_PAGES || [];
 
-  function normaliseUrl(url) {
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    return anchor.pathname.replace(/\/+/g, "/").replace(/^\//, "");
+  function currentPath() {
+    const path = window.location.pathname.replace(/\/+/g, "/").replace(/^\//, "");
+    if (!path || path.endsWith("/")) return "index.html";
+    return path;
   }
 
-  function currentPagePath() {
-    const path = normaliseUrl(window.location.pathname || "index.html");
-    return path === "" ? "index.html" : path;
+  function isCurrentPage(page) {
+    const path = currentPath();
+    return path === page.url || path.endsWith("/" + page.url);
   }
 
-  function pagePathFromLink(url) {
-    const link = document.createElement("a");
-    link.href = url;
-    return normaliseUrl(link.pathname);
+  function isPostPage() {
+    const current = pages.find(isCurrentPage);
+    return Boolean(current && current.url.startsWith("posts/"));
   }
 
   function toRelativeUrl(url) {
-    const isPost = currentPagePath().startsWith("posts/");
-    return isPost && !url.startsWith("../") ? "../" + url : url;
-  }
-
-  function pageMatchesCurrent(page) {
-    return pagePathFromLink(page.url) === currentPagePath();
+    return isPostPage() && !url.startsWith("../") ? "../" + url : url;
   }
 
   function makeText(page) {
@@ -74,7 +68,7 @@
       searchResults.innerHTML = results.map(({ page }) => `
         <article class="search-result">
           <p class="tag">${page.type}</p>
-          <h2><a href="${page.url}">${page.title}</a></h2>
+          <h2><a href="${toRelativeUrl(page.url)}">${page.title}</a></h2>
           <p>${page.excerpt}</p>
         </article>
       `).join("");
@@ -96,7 +90,7 @@
     const container = document.querySelector("[data-backlinks]");
     if (!container) return;
 
-    const current = pages.find(pageMatchesCurrent);
+    const current = pages.find(isCurrentPage);
     if (!current) return;
 
     const names = [current.title].concat(current.aliases || []);
