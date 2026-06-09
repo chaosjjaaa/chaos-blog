@@ -6,8 +6,8 @@ window.BLOG_PAGES = [
     aliases: ["Chaos Blog", "首页"],
     keywords: ["HTML", "CSS", "GitHub Pages", "博客", "学习笔记"],
     excerpt: "用 HTML 和 CSS 搭一个安静的小博客，记录文章、诗词摘抄、学习笔记和项目记录。",
-    content: "GitHub Pages 静态博客练习 首页 最近内容 静夜思 春江花月夜 春天的诗 网页练习计划",
-    links: ["诗词摘抄", "关于本站"]
+    content: "GitHub Pages 静态博客练习 首页 最近内容 静夜思 春江花月夜 春天的诗 网页练习计划 二阶其次常微分方程 特征方程法",
+    links: ["诗词摘抄", "关于本站", "二阶其次常微分方程"]
   },
   {
     title: "诗词摘抄",
@@ -48,5 +48,15 @@ window.BLOG_PAGES = [
     excerpt: "写春江、明月、花林与人生感怀，画面感很强。",
     content: "春江潮水连海平 海上明月共潮生 滟滟随波千万里 江天一色无纤尘 人生代代无穷已",
     links: ["诗词摘抄", "《静夜思》小记"]
+  },
+  {
+    title: "二阶其次常微分方程",
+    url: "posts/second-order-ode.html",
+    type: "文章",
+    aliases: ["二阶常微分方程", "二阶齐次常微分方程", "特征方程法"],
+    keywords: ["微积分", "微分方程", "代数", "二阶", "常微分方程", "特征方程", "指数函数"],
+    excerpt: "整理特征方程法，从一阶方程推到二阶常微分方程的指数型解。",
+    content: "二阶其次常微分方程 微积分 微分方程 代数 特征方程法 ay'' by' c y'' ay' by e^{kx} k1 k2 线性叠加 一阶线性微分方程 f'=f f'=af f'=af+b f''=f f''=af f''=af+b f''=af'+bf+d",
+    links: ["主页", "一阶线性微分方程解法"]
   }
 ];
