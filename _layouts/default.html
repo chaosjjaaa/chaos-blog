@@ -65,11 +65,11 @@
 
       <p>分区</p>
       <nav class="sidebar-nav" aria-label="分区导航">
-        <a {% if page.section_key == 'math' %}class="active"{% endif %} href="{{ '/sections/math.html' | relative_url }}">数学笔记</a>
-        <a {% if page.section_key == 'poem' %}class="active"{% endif %} href="{{ '/sections/poem.html' | relative_url }}">诗歌</a>
-        <a {% if page.section_key == 'project' %}class="active"{% endif %} href="{{ '/sections/project.html' | relative_url }}">项目</a>
-        <a {% if page.section_key == 'misc' %}class="active"{% endif %} href="{{ '/sections/misc.html' | relative_url }}">随笔</a>
-        <a {% if page.section_key == 'other' %}class="active"{% endif %} href="{{ '/sections/other.html' | relative_url }}">其他</a>
+        <a {% if page.section_key == 'math' or page.section == 'math' %}class="active"{% endif %} href="{{ '/sections/math.html' | relative_url }}">数学笔记</a>
+        <a {% if page.section_key == 'poem' or page.section == 'poem' %}class="active"{% endif %} href="{{ '/sections/poem.html' | relative_url }}">诗歌</a>
+        <a {% if page.section_key == 'project' or page.section == 'project' %}class="active"{% endif %} href="{{ '/sections/project.html' | relative_url }}">项目</a>
+        <a {% if page.section_key == 'misc' or page.section == 'misc' %}class="active"{% endif %} href="{{ '/sections/misc.html' | relative_url }}">随笔</a>
+        <a {% if page.section_key == 'other' or page.section == 'other' %}class="active"{% endif %} href="{{ '/sections/other.html' | relative_url }}">其他</a>
       </nav>
     </div>
   </aside>
@@ -99,7 +99,7 @@
     </div>
   </footer>
 
-  <script defer src="{{ '/blog-data.js' | relative_url }}"></script>
-  <script defer src="{{ '/blog.js' | relative_url }}"></script>
+  <script defer src="{{ '/blog-data.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  <script defer src="{{ '/blog.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
 </body>
 </html>
