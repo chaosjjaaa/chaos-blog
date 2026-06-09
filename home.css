@@ -1,0 +1,39 @@
+/* Homepage-specific card layout overrides */
+.home-posts .card-grid {
+  grid-template-columns: repeat(auto-fill, 240px);
+  justify-content: start;
+  align-items: start;
+  gap: 18px;
+}
+
+.home-posts .card {
+  width: 240px;
+  height: 240px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.home-posts .card p:not(.tag):not(.meta) {
+  -webkit-line-clamp: 2;
+}
+
+@media (max-width: 720px) {
+  .home-posts .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .home-posts .card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-posts .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
