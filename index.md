@@ -17,7 +17,7 @@ title: Chaos的博客
   </div>
 </section>
 
-<section class="container section">
+<section class="container section home-posts">
   <h2>最近内容</h2>
 
   {% if site.posts.size > 0 %}
@@ -46,9 +46,4 @@ title: Chaos的博客
   {% else %}
     <p class="muted">还没有文章。把 Markdown 文件放进 <code>_posts/</code> 后，文章会自动显示在这里。</p>
   {% endif %}
-</section>
-
-<section class="container quote-box">
-  <blockquote>Chaos的博客</blockquote>
-  <p>记录学习、项目和思考。</p>
 </section>
