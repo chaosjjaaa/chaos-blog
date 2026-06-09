@@ -13,6 +13,7 @@
       <nav>
         <a href="../index.html">主页</a>
         <a href="../poems.html">诗词摘抄</a>
+        <a href="../search.html">搜索</a>
         <a href="../about.html">关于</a>
       </nav>
     </div>
@@ -39,12 +40,24 @@
         做网页时，也可以学习这种“简单但有重点”的表达。一个页面不需要堆很多东西，先把标题、正文、链接和留白做好，就已经很清楚了。
       </p>
 
+      <h2>相关链接</h2>
+      <p>
+        可以回到 <a data-wikilink="诗词摘抄" href="../poems.html">诗词摘抄</a>，也可以继续阅读
+        <a data-wikilink="春江花月夜" href="chunjianghuayueye.html">春江花月夜</a>。
+      </p>
+
       <h2>页面练习点</h2>
       <ul>
         <li>使用 <code>article</code> 表示一篇文章。</li>
         <li>使用 <code>section</code> 区分原文和笔记。</li>
         <li>通过 <code>../style.css</code> 引用上一级目录的 CSS 文件。</li>
       </ul>
+
+      <section class="backlinks-section">
+        <h2>双链引用</h2>
+        <p class="muted">这些页面提到了或链接到了「静夜思」。</p>
+        <div class="backlinks-list" data-backlinks></div>
+      </section>
 
       <p><a class="read-more" href="../poems.html">← 返回诗词摘抄</a></p>
     </article>
@@ -55,6 +68,8 @@
       <p>© 2026 Chaos Blog.</p>
     </div>
   </footer>
+
+  <script src="../blog-data.js"></script>
+  <script src="../blog.js"></script>
 </body>
 </html>
-
