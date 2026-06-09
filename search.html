@@ -1,48 +1,21 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>搜索 - Chaos Blog</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="logo" href="index.html">Chaos Blog</a>
-      <nav>
-        <a href="index.html">主页</a>
-        <a href="poems.html">诗词摘抄</a>
-        <a href="search.html">搜索</a>
-        <a href="about.html">关于</a>
-      </nav>
+---
+layout: default
+title: 搜索
+---
+
+<main class="container section page-content">
+  <h1>搜索</h1>
+  <p class="lead">输入标题或关键词，就能在本站内容里查找匹配页面。</p>
+
+  <form class="search-box" action="search.html" method="get">
+    <label for="site-search">搜索关键词</label>
+    <div class="search-row">
+      <input id="site-search" name="q" type="search" data-search-input placeholder="例如：二阶齐次常微分方程、Math" autocomplete="off" />
+      <button class="button" type="submit">搜索</button>
     </div>
-  </header>
+  </form>
 
-  <main class="container section page-content">
-    <h1>搜索</h1>
-    <p class="lead">输入标题、作者、诗句或关键词，就能在本站内容里查找匹配页面。</p>
-
-    <form class="search-box" action="search.html" method="get">
-      <label for="site-search">搜索关键词</label>
-      <div class="search-row">
-        <input id="site-search" name="q" type="search" data-search-input placeholder="例如：月光、李白、GitHub Pages" autocomplete="off" />
-        <button class="button" type="submit">搜索</button>
-      </div>
-    </form>
-
-    <section class="search-results" data-search-results aria-live="polite">
-      <p class="muted">可以搜索：静夜思、春江花月夜、春晓、CSS、GitHub Pages。</p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Chaos Blog.</p>
-    </div>
-  </footer>
-
-  <script src="blog-data.js"></script>
-  <script src="blog.js"></script>
-</body>
-</html>
+  <section class="search-results" data-search-results aria-live="polite">
+    <p class="muted">可以搜索：二阶齐次常微分方程、Chaos Blog。</p>
+  </section>
+</main>
