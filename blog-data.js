@@ -28,8 +28,7 @@
   });
 
   {% for item in site.pages %}
-  {% if item.title %}
-  {% if item.url != '/' %}
+  {% if item.title and item.url != '/' and item.search_exclude != true %}
   addPage({
     title: {{ item.title | jsonify }},
     url: {{ item.url | relative_url | jsonify }},
@@ -41,10 +40,10 @@
     links: {{ item.links | jsonify }}
   });
   {% endif %}
-  {% endif %}
   {% endfor %}
 
   {% for post in site.posts %}
+  {% if post.search_exclude != true %}
   addPage({
     title: {{ post.title | jsonify }},
     url: {{ post.url | relative_url | jsonify }},
@@ -55,6 +54,7 @@
     content: {{ post.content | strip_html | normalize_whitespace | truncate: 2000 | jsonify }},
     links: {{ post.links | jsonify }}
   });
+  {% endif %}
   {% endfor %}
 
   window.BLOG_PAGES = pages;
