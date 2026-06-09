@@ -2,9 +2,19 @@
 layout: post
 title: 二阶齐次常微分方程
 date: 2026-06-09
+section: math
 categories: 数学笔记
 mathjax: true
 description: 特征方程法与二阶常微分方程解法整理。
+aliases:
+  - 二阶微分方程
+  - 二阶 ODE
+keywords:
+  - 数学
+  - 微分方程
+  - 特征方程
+links:
+  - 一阶线性微分方程解法
 ---
 
 ## 二阶齐次常微分方程
@@ -82,7 +92,7 @@ $$
 > 猜到特解 $f=e^{x}$。
 >
 > 设 $f=ge^{x}$，得到
-$$(g''+g'+g'+g)e^{x}=ge^{x}\iff g''+2g'=0$$
+>$$(g''+g'+g'+g)e^{x}=ge^{x}\iff g''+2g'=0$$
 >
 > 根据前面的结果得到 $g'=Ce^{-2x}\to g=C_{1}e^{-2x}+C_{2}$。
 >
