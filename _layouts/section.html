@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+{% assign section = site.data.sections[page.section_key] %}
+
+<main class="container section section-page">
+  <p class="eyebrow">分区</p>
+  <h1>{{ section.title | default: page.title }}</h1>
+  <p class="lead">{{ section.description }}</p>
+
+  <div class="card-grid section-card-grid">
+    {% assign has_posts = false %}
+
+    {% for post in site.posts %}
+      {% if post.section == page.section_key or post.path contains section.dir %}
+        {% assign has_posts = true %}
+        {% include post-card.html post=post label=section.label %}
+      {% endif %}
+    {% endfor %}
+
+    {% unless has_posts %}
+      <p class="muted">这个分区还没有文章。</p>
+    {% endunless %}
+  </div>
+</main>
